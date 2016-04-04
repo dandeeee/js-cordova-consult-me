@@ -1,0 +1,18 @@
+<ion-navbar *navbar hideBackButton [attr.danger]="isAndroid ? '' : null">
+  <ion-title>Consult Me</ion-title>
+</ion-navbar>
+<ion-content>
+  <ion-list>
+    <ion-item ion-item *ngFor="#item of items" (click)="itemTapped($event, item)">
+      <ion-thumbnail item-left>
+        <img src="img/appicon.png">
+      </ion-thumbnail>
+      <h2>My Neighbor Totoro</h2>
+      <p>Hayao Miyazaki • 1988</p>
+      <button clear item-right>View</button>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.title}}</b>
+  </div>
+</ion-content>
