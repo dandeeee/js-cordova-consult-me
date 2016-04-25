@@ -1,5 +1,6 @@
 import {Page, NavController, NavParams, Platform} from 'ionic-angular';
 import {ItemDetailsPage} from '../item-details/item-details';
+import {Http, HTTP_PROVIDERS} from 'angular2/http';
 
 
 @Page({
@@ -10,14 +11,17 @@ export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
   isAndroid: boolean;
+  temp: string;
 
-  constructor(private nav: NavController, navParams: NavParams, platform: Platform) {
-    // If we navigated to this page, we will have an item available as a nav param
+  constructor(private nav: NavController, navParams: NavParams, platform: Platform, http: Http) {
     this.selectedItem = navParams.get('item');
     this.isAndroid = platform.is('android');
 
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
     'american-football', 'boat', 'bluetooth', 'build'];
+    http.get('http://slack.dev/api/v1/user/current').subscribe(response => {
+          this.temp = response.text();
+        });
 
     this.items = [];
     for(let i = 1; i < 11; i++) {

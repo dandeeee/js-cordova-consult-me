@@ -1,6 +1,8 @@
 import {NavController, NavParams} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {ListPage} from './../pages/list/list';
+import {ChatPage} from './../pages/chat/chat';
+import {SettingsPage} from './../pages/settings/settings';
 
 @Page({
     template:
@@ -32,8 +34,8 @@ class TabIconPage {
 })
 export class IconPage {
     consultsList = ListPage;
-    chats = TabIconPage;
-    settings = TabIconPage;
+    chats = ChatPage;
+    settings = SettingsPage;
 
     onPageWillLeave() {
         document.getElementById('md-tabs-icon').style.display = "none";
