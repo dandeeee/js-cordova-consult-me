@@ -1,37 +1,36 @@
 import {Page, NavController, NavParams, Platform} from 'ionic-angular';
-import {ItemDetailsPage} from '../item-details/item-details';
-import {Http, HTTP_PROVIDERS} from 'angular2/http';
+import {Http, HTTP_PROVIDERS } from 'angular2/http';
 
+import {ItemDetailsPage} from '../item-details/item-details';
+import {UserService} from "../../common/services/user.service";
 
 @Page({
-  templateUrl: 'build/pages/list/list.html'
+  templateUrl: 'build/pages/list/list.html',
+  providers: [
+      HTTP_PROVIDERS
+  ]
 })
 export class ListPage {
   selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  users: any;  
   isAndroid: boolean;
-  temp: string;
+  user: any = {
+      'email': 0,
+      'password': 0
+  };
 
-  constructor(private nav: NavController, navParams: NavParams, platform: Platform, http: Http) {
+  constructor(private nav: NavController,
+              navParams: NavParams,
+              platform: Platform,
+              http: Http,
+              private userService: UserService) {
     this.selectedItem = navParams.get('item');
     this.isAndroid = platform.is('android');
-
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-    http.get('http://slack.dev/api/v1/user/current').subscribe(response => {
-          this.temp = response.text();
-        });
-
-    this.items = [];
-    for(let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+    this.userService.getCurrentUser().subscribe( user => this.user = JSON.parse(user['_body']));
+    this.userService.getAllUsers().subscribe( users => this.users = JSON.parse(users["_body"]) );
   }
+
+  
 
   itemTapped(event, item) {
     this.nav.push(ItemDetailsPage, {

@@ -1,44 +1,40 @@
-import {NavController, NavParams} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {ListPage} from './../pages/list/list';
 import {ChatPage} from './../pages/chat/chat';
 import {SettingsPage} from './../pages/settings/settings';
+import {AppService} from "../common/services/app.service";
+import {UserService} from "../common/services/user.service";
+import {Http} from "angular2/http";
+import {OnInit} from "angular2/core";
 
 @Page({
-    template:
-    '<ion-navbar *navbar hideBackButton [attr.danger]="isAndroid ? \'\' : null">' +
-    '<ion-title>Consult Me</ion-title>' +
-    '</ion-navbar>' +
-    '<ion-content>' +
-    '</ion-content>'
+    templateUrl: 'build/tabs/tabs.html',
+    providers: [
+        AppService,
+        UserService
+    ]
 })
-class TabIconPage {
-    isAndroid: boolean = false;
-
-    constructor(platform: Platform) {
-        this.isAndroid = platform.is('android');
-    }
-    onPageWillEnter() {
-        document.getElementById('md-tabs-icon').style.display = "block";
-        document.getElementById('md-only').style.display = "none";
-    }
-}
-
-@Page({
-    template:
-    '<ion-tabs class="tabs-icon">' +
-    '<ion-tab tabIcon="contacts" [root]="consultsList"></ion-tab>' +
-    '<ion-tab tabIcon="chatbubbles" [root]="chats"></ion-tab>' +
-    '<ion-tab tabIcon="settings" [root]="settings"></ion-tab>' +
-    '</ion-tabs>',
-})
-export class IconPage {
+export class MainTabs implements OnInit {
     consultsList = ListPage;
-    chats = ChatPage;
-    settings = SettingsPage;
+    chats        = ChatPage;
+    settings     = SettingsPage;
+    user = {
+        'email': 'dima@gmail.com',
+        'password': 'dima'
+    };
 
+    constructor(
+        private http: Http,
+        private userService: UserService) {
+        
+    }
+    
     onPageWillLeave() {
         document.getElementById('md-tabs-icon').style.display = "none";
         document.getElementById('md-only').style.display = "block";
+    }
+
+    ngOnInit() {
+        this.userService.loginUser().subscribe(user => this.user = JSON.parse(user["_body"]));
     }
 }

@@ -1,4 +1,8 @@
-<ion-tabs>
-    <ion-tab tabIcon="contact" [root]="tab1"></ion-tab>
-    <ion-tab tabIcon="compass" [root]="tab2"></ion-tab>
+<ion-navbar *navbar hideBackButton [attr.danger]="isAndroid ? '' : null">
+    <ion-title>Consult Me</ion-title>
+</ion-navbar>
+<ion-tabs class="tabs-icon">
+    <ion-tab tabIcon="contacts"    [root]="consultsList"></ion-tab>
+    <ion-tab tabIcon="chatbubbles" [root]="chats"></ion-tab>
+    <ion-tab tabIcon="settings"    [root]="settings"></ion-tab>
 </ion-tabs>

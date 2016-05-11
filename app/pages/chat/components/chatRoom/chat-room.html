@@ -1,0 +1,47 @@
+<ion-navbar *navbar>
+    <ion-title>{{chat['name']}}</ion-title>
+</ion-navbar>
+<ion-content>
+    <ion-list>
+        <ion-item-sliding *ngFor="#message of messages">
+            <ion-item>
+                <ion-avatar item-left>
+                    <img src="http://ionicframework.com/dist/preview-app/www/img/stantz.jpg">
+                </ion-avatar>
+                <h2>{{message['author']['first_name']}}</h2>
+                <p>{{message['message']}}</p>
+            </ion-item>
+            <ion-item-options>
+                <button primary>
+                    <ion-icon name="text"></ion-icon>
+                    Text
+                </button>
+                <button secondary>
+                    <ion-icon name="call"></ion-icon>
+                    Call
+                </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <!--<ion-item>-->
+    <!--<ion-label floating>New Message</ion-label>-->
+    <!--<ion-input type="text"></ion-input>-->
+    <!--</ion-item>-->
+
+
+    <ion-row>
+        <ion-col width-10>
+            <button small primary>
+                <ion-icon name="add"></ion-icon>
+            </button>
+        </ion-col>
+        <ion-col width-70>
+            <ion-input type="text" placeholder="New Message"></ion-input>
+        </ion-col>
+        <ion-col width-10>
+            <button small primary>
+                <ion-icon name="send"></ion-icon>
+            </button>
+        </ion-col>
+    </ion-row>
+</ion-content>
