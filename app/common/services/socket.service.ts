@@ -9,7 +9,7 @@ export class SocketService {
     socket: any;
 
     constructor(private appService: AppService) {
-        this.socket = io(appService.socketHost);
+        this.socket = io(appService.socketHost, {});
     }
 
     on(event, callback) {

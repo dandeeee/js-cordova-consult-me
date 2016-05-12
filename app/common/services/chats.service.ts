@@ -23,4 +23,10 @@ export class ChatsService {
         let options = new RequestOptions({ headers: headers });
         return this.http.post(this.appService.apiUrl + 'message', JSON.stringify(body), options);
     }
+
+    sendMessage(body) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.appService.apiUrl + 'newMessage', JSON.stringify(body), options);
+    }
 }
