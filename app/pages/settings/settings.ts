@@ -1,32 +1,34 @@
-import {Page, NavController, NavParams, Platform} from 'ionic-angular';
-import {Http, HTTP_PROVIDERS, Headers, RequestOptions, Response} from 'angular2/http';
-import { Observable } from 'rxjs/Observable';
+import {Page} from 'ionic-angular';
+import {NgZone} from 'angular2/core';
+import {Camera} from "ionic-native";
+
 @Page({
-    templateUrl: 'build/pages/settings/settings.html',
-    providers:  [
-        HTTP_PROVIDERS
-    ]
+    templateUrl: 'build/pages/settings/settings.html'
 })
 export class SettingsPage {
+  static get parameters() {
+    return [NgZone];
+  }
     user: any;
     apiUrl: string = '';
+    image: any = null;
 
-    constructor(private http: Http) {
-        
+    constructor(private ngzone: NgZone) {
     }
 
-    getUser(email: string, password: string): Observable<any> {
-        let body = JSON.stringify({'email': email, 'password': password});
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        return this.http.post(this.apiUrl + 'login', body, options);
-    }
+    takepic() {
+        var options = {
+            destinationType: 0,
+            sourceType: 1,
+            encodingType: 0,
+            quality:100,
+            allowEdit: false,
+            saveToPhotoAlbum: false
+        };
 
-    getUsers(): Observable<any> {
-        return this.http.get(this.apiUrl + 'users');
-    }
-
-    getCurrentUser(): Observable<any> {
-        return this.http.get(this.apiUrl + 'user/current');
+        Camera.getPicture(options).then((data) => {
+          let imgdata = "data:image/jpeg;base64," + data;
+          this.ngzone.run( () => this.image = imgdata)
+        });
     }
 }
