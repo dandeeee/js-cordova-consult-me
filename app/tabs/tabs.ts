@@ -8,24 +8,19 @@ import {Http} from "angular2/http";
 import {OnInit} from "angular2/core";
 
 @Page({
-    templateUrl: 'build/tabs/tabs.html',
-    providers: [
-        AppService,
-        UserService
-    ]
+    templateUrl: 'build/tabs/tabs.html'
+    // providers: [
+    //     AppService,
+    //     UserService
+    // ]
 })
 export class MainTabs implements OnInit {
     consultsList = ListPage;
     chats        = ChatPage;
     settings     = SettingsPage;
-    user = {
-        'email': 'dima@gmail.com',
-        'password': 'dima'
-    };
 
     constructor(
-        private http: Http,
-        private userService: UserService) {
+        private http: Http) {
         
     }
     
@@ -35,6 +30,6 @@ export class MainTabs implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.loginUser().subscribe(user => this.user = JSON.parse(user["_body"]));
+        // this.userService.loginUser().subscribe(user => this.user = JSON.parse(user["_body"]));
     }
 }

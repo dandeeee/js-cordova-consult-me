@@ -1,0 +1,23 @@
+<ion-navbar *navbar hideBackButton>
+    <ion-title>Login</ion-title>
+</ion-navbar>
+
+<ion-content>
+    <ion-list>
+
+        <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-input type="text" [(ngModel)]="loginData.email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Password</ion-label>
+            <ion-input type="password" [(ngModel)]="loginData.password"></ion-input>
+        </ion-item>
+
+    </ion-list>
+
+    <div padding (click)="login(loginData)">
+        <button block>Sign In</button>
+    </div>
+</ion-content>

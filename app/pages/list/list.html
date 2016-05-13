@@ -1,12 +1,11 @@
 <ion-content>
   <ion-list>
-    <ion-item ion-item *ngFor="#item of users" (click)="itemTapped($event, item)">
+    <ion-item ion-item *ngFor="#user of users" (click)="itemTapped($event, user)">
       <ion-thumbnail item-left>
-        <img src="img/appicon.png">
+        <img [src]="user['avatar_url']">
       </ion-thumbnail>
-      <h2>{{item["first_name"]}}</h2>
-      <p>{{item["last_name"]}}</p>
-      <button clear item-right>View</button>
+      <h2>{{user["first_name"]}}</h2>
+      <p>{{user["last_name"]}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

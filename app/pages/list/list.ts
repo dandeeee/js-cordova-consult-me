@@ -26,7 +26,7 @@ export class ListPage {
               private userService: UserService) {
     this.selectedItem = navParams.get('item');
     this.isAndroid = platform.is('android');
-    this.userService.getCurrentUser().subscribe( user => this.user = JSON.parse(user['_body']));
+    // this.userService.getCurrentUser().subscribe( user => this.user = JSON.parse(user['_body']));
     this.userService.getAllUsers().subscribe( users => this.users = JSON.parse(users["_body"]) );
   }
 

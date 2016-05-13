@@ -26,8 +26,9 @@ export class ChatPage implements OnInit {
     { }
 
     ngOnInit() {
-        this.chatsService.getAllPublicChats().subscribe( chats => this.chats = JSON.parse(chats['_body']) );
-        this.socketService.on('connect', msg => console.log('blabla'));
+        this.chatsService.getChats().subscribe(chats =>
+          this.chats = JSON.parse(chats['_body'])
+        );
     }
 
     itemTapped(event, item) {
