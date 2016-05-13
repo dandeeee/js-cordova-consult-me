@@ -1,0 +1,6 @@
+<ion-content>
+    <button (click)="takepic()">camera</button>
+    <ion-card *ngIf="image">
+        <img [src]="image">
+    </ion-card>
+</ion-content>
